@@ -1,0 +1,44 @@
+name: 冒险岛世界金价监控
+
+on:
+  schedule:
+    # 每30分钟运行一次 (UTC时间)
+    - cron: '*/30 * * * *'
+  workflow_dispatch:  # 允许手动触发
+
+permissions:
+  contents: write
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Run DD373 tracker
+        run: python dd373_tracker.py
+
+      - name: Generate report
+        run: |
+          python -c "
+          from dd373_tracker import generate_html_report
+          r = generate_html_report()
+          print(f'Report: {r}')
+          "
+
+      - name: Commit and push changes
+        run: |
+          git config user.name 'Meso Monitor Bot'
+          git config user.email 'bot@mapleworld-meso-tracker'
+          git add data/dd373_history.json reports/dd373_report.html
+          git diff --staged --quiet || git commit -m "📊 $(date '+%Y-%m-%d %H:%M') 自动更新金价数据"
+          git push
