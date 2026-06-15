@@ -34,7 +34,7 @@ canvas { max-height: 350px; }
 <body>
 <div class="header">
     <h1>🎮 冒险岛世界 · 游戏币多平台监控</h1>
-    <p class="subtitle">DD373 (人民币) + 8591 (台币→人民币) · 2026-06-16 03:38 北京时间</p>
+    <p class="subtitle">DD373 (人民币) + 8591 (台币→人民币) · 2026-06-16 06:13 北京时间</p>
 </div>
 
 <div class="dashboard">
@@ -49,26 +49,26 @@ canvas { max-height: 350px; }
     </div>
                 <div class="summary-item">
         <div class="label">💰 均价</div>
-        <div class="value">1元 = 47.2862万</div>
-        <div class="sub">1亿 ≈ ¥211.48</div>
+        <div class="value">1元 = 47.2823万</div>
+        <div class="sub">1亿 ≈ ¥211.5</div>
     </div>
                 <div class="summary-item">
         <div class="label">🥇 最优</div>
-        <div class="value">1元 = 48.3871万</div>
+        <div class="value">1元 = 48.3092万</div>
         
     </div>
                 <div class="summary-item">
         <div class="label">📊 价差</div>
-        <div class="value">4.0%</div>
+        <div class="value">3.9%</div>
         
     </div>
             </div>
             <h4 style="color:#888;margin:15px 0 10px;">商品列表</h4>
             <table><thead><tr><th>#</th><th>数量</th><th>价格</th><th>比例</th><th>单价</th><th>库存</th><th>标注</th></tr></thead><tbody><tr>
             <td>1</td>
-            <td>15000万</td>
-            <td>¥310.0</td>
-            <td><b>1元=48.3871万</b></td>
+            <td>20000万</td>
+            <td>¥414.0</td>
+            <td><b>1元=48.3092万</b></td>
             <td>1万=¥0.0207</td>
             <td>-</td>
             <td><span style="color:#4caf50;">🥇 最优</span></td>
@@ -243,16 +243,16 @@ canvas { max-height: 350px; }
 new Chart(document.getElementById('rateChart').getContext('2d'), {
     type: 'line',
     data: {
-        labels: ["2026-06-15T11:34", "2026-06-15T17:52", "2026-06-15T23:36", "2026-06-16T03:38"],
+        labels: ["2026-06-15T11:34", "2026-06-15T17:52", "2026-06-15T23:36", "2026-06-16T03:38", "2026-06-16T06:13"],
         datasets: [{
             label: 'DD373 均价',
-            data: [47.1098, 47.7501, 47.7982, 47.2862],
+            data: [47.1098, 47.7501, 47.7982, 47.2862, 47.2823],
             borderColor: '#ff6b35',
             backgroundColor: '#ff6b3533',
             tension: 0.3, fill: false, pointRadius: 2, borderWidth: 2,
         }, {
             label: 'DD373 最优',
-            data: [47.619, 48.7805, 48.5186, 48.3871],
+            data: [47.619, 48.7805, 48.5186, 48.3871, 48.3092],
             borderColor: '#4caf50',
             backgroundColor: '#4caf5033',
             tension: 0.3, fill: false, pointRadius: 1, borderDash: [5,5],
