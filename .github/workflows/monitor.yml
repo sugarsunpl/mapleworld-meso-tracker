@@ -27,7 +27,12 @@ jobs:
         run: python dd373_tracker.py
 
       - name: Generate report
-        run: python -c "from dd373_tracker import generate_html_report; r = generate_html_report(); print(f'Report: {r}')"
+        run: |
+          python -c "
+          from dd373_tracker import generate_html_report
+          r = generate_html_report()
+          print(f'Report: {r}')
+          "
 
       - name: Commit and push changes
         run: |
