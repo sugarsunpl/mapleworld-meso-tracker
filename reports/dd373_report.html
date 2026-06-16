@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>冒险岛世界 · 游戏币多平台监控</title>
+<title>冒险岛世界 · DD373金价监控</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -11,261 +11,244 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .header { text-align: center; margin-bottom: 25px; }
 .header h1 { color: #ff6b35; font-size: 2em; }
 .header .subtitle { color: #888; font-size: 0.9em; margin-top: 5px; }
-.summary-bar { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 15px; }
-.summary-item { background: #1a2733; border-radius: 10px; padding: 12px 20px; text-align: center; border: 1px solid #2a3a4a; min-width: 110px; }
-.summary-item .label { color: #888; font-size: 0.75em; }
-.summary-item .value { font-size: 1.3em; font-weight: bold; color: #ff6b35; }
-.summary-item .sub { font-size: 0.75em; color: #666; }
-.dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1600px; margin: 0 auto; }
-@media (max-width: 1000px) { .dashboard { grid-template-columns: 1fr; } }
-.card { background: #1a2733; border-radius: 12px; padding: 20px; border: 1px solid #2a3a4a; }
-.card.full { grid-column: 1 / -1; }
-.card h3 { color: #ff6b35; margin-bottom: 12px; font-size: 1.1em; }
-.card h4 { font-size: 0.9em; }
-table { width: 100%; border-collapse: collapse; font-size: 0.85em; }
-th { text-align: left; padding: 6px 8px; border-bottom: 2px solid #2a3a4a; color: #888; font-weight: normal; font-size: 0.8em; }
-td { padding: 6px 8px; border-bottom: 1px solid #1e2a35; }
+.summary-bar { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; }
+.summary-item { background: #1a2733; border-radius: 10px; padding: 15px 25px; text-align: center; border: 1px solid #2a3a4a; min-width: 130px; }
+.summary-item .label { color: #888; font-size: 0.8em; }
+.summary-item .value { font-size: 1.5em; font-weight: bold; color: #ff6b35; }
+.summary-item .sub { font-size: 0.8em; color: #666; }
+.dashboard { max-width: 900px; margin: 0 auto; }
+.card { background: #1a2733; border-radius: 12px; padding: 20px; border: 1px solid #2a3a4a; margin-bottom: 20px; }
+.card h3 { color: #ff6b35; margin-bottom: 15px; font-size: 1.1em; }
+table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+th { text-align: left; padding: 8px 10px; border-bottom: 2px solid #2a3a4a; color: #888; font-weight: normal; }
+td { padding: 8px 10px; border-bottom: 1px solid #1e2a35; }
 tr:hover td { background: #1e2a35; }
 canvas { max-height: 350px; }
 .footer { text-align: center; color: #555; margin-top: 30px; font-size: 0.8em; }
-.alert { background: #ff6b3522; border: 1px solid #ff6b35; border-radius: 8px; padding: 10px 15px; margin-bottom: 15px; font-size: 0.9em; }
 </style>
 </head>
 <body>
 <div class="header">
-    <h1>🎮 冒险岛世界 · 游戏币多平台监控</h1>
-    <p class="subtitle">DD373 (人民币) + 8591 (台币→人民币) · 2026-06-16 13:42 北京时间</p>
+    <h1>🎮 冒险岛世界 · 亚服阿尔泰 · 游戏币比例</h1>
+    <p class="subtitle">数据来源: DD373 · 2026-06-17 00:21 北京时间 · 每30分钟自动更新</p>
+</div>
+
+<div class="summary-bar">
+    <div class="summary-item">
+        <div class="label">📦 在线商品</div>
+        <div class="value">20</div>
+    </div>
+    <div class="summary-item">
+        <div class="label">💰 均价</div>
+        <div class="value">1元 = 48.1873万</div>
+        <div class="sub">1亿 ≈ ¥207.52</div>
+    </div>
+    <div class="summary-item">
+        <div class="label">🥇 最优比例</div>
+        <div class="value">1元 = 50.0万</div>
+        <div class="sub">¥20.0/1000万</div>
+    </div>
+    <div class="summary-item">
+        <div class="label">📊 买卖价差</div>
+        <div class="value">7.5%</div>
+    </div>
 </div>
 
 <div class="dashboard">
-    
-        <div class="card">
-            <h3>🇨🇳 DD373 (人民币)</h3>
-            <div class="summary-bar" style="justify-content:flex-start;">
-                <div class="summary-item">
-        <div class="label">📦 商品数</div>
-        <div class="value">20</div>
-        
+    <div class="card">
+        <h3>📈 游戏币比例走势 (1元=？万 · 越高越划算)</h3>
+        <canvas id="rateChart"></canvas>
     </div>
-                <div class="summary-item">
-        <div class="label">💰 均价</div>
-        <div class="value">1元 = 49.7967万</div>
-        <div class="sub">1亿 ≈ ¥200.82</div>
-    </div>
-                <div class="summary-item">
-        <div class="label">🥇 最优</div>
-        <div class="value">1元 = 50.7892万</div>
-        
-    </div>
-                <div class="summary-item">
-        <div class="label">📊 价差</div>
-        <div class="value">4.6%</div>
-        
-    </div>
-            </div>
-            <h4 style="color:#888;margin:15px 0 10px;">商品列表</h4>
-            <table><thead><tr><th>#</th><th>数量</th><th>价格</th><th>比例</th><th>单价</th><th>库存</th><th>标注</th></tr></thead><tbody><tr>
+
+    <div class="card">
+        <h3>📋 当前在售商品 (按比例从优到差)</h3>
+        <div style="overflow-x: auto;">
+            <table>
+                <thead><tr><th>#</th><th>数量</th><th>价格</th><th>比例</th><th>单价</th><th>标注</th></tr></thead>
+                <tbody><tr>
             <td>1</td>
-            <td>6500万</td>
-            <td>¥127.98</td>
-            <td><b>1元=50.7892万</b></td>
-            <td>1万=¥0.0197</td>
-            <td>-</td>
+            <td>1000万</td>
+            <td>¥20.0</td>
+            <td><b>1元=50.0万</b></td>
+            <td>1万=¥0.02</td>
             <td><span style="color:#4caf50;">🥇 最优</span></td>
         </tr><tr>
             <td>2</td>
-            <td>5000万</td>
-            <td>¥98.45</td>
-            <td><b>1元=50.7872万</b></td>
-            <td>1万=¥0.0197</td>
-            <td>-</td>
-            <td></td>
+            <td>4300万</td>
+            <td>¥86.0</td>
+            <td><b>1元=50.0万</b></td>
+            <td>1万=¥0.02</td>
+            <td><span style="color:#4caf50;">🥇 最优</span></td>
         </tr><tr>
             <td>3</td>
-            <td>5500万</td>
-            <td>¥108.3</td>
-            <td><b>1元=50.7849万</b></td>
-            <td>1万=¥0.0197</td>
-            <td>-</td>
-            <td></td>
+            <td>2300万</td>
+            <td>¥46.0</td>
+            <td><b>1元=50.0万</b></td>
+            <td>1万=¥0.02</td>
+            <td><span style="color:#4caf50;">🥇 最优</span></td>
         </tr><tr>
             <td>4</td>
-            <td>1800万</td>
-            <td>¥35.64</td>
-            <td><b>1元=50.5051万</b></td>
-            <td>1万=¥0.0198</td>
-            <td>-</td>
-            <td></td>
+            <td>6000万</td>
+            <td>¥120.0</td>
+            <td><b>1元=50.0万</b></td>
+            <td>1万=¥0.02</td>
+            <td><span style="color:#4caf50;">🥇 最优</span></td>
         </tr><tr>
             <td>5</td>
-            <td>4500万</td>
-            <td>¥89.1</td>
-            <td><b>1元=50.5051万</b></td>
-            <td>1万=¥0.0198</td>
-            <td>-</td>
+            <td>9300万</td>
+            <td>¥188.0</td>
+            <td><b>1元=49.4681万</b></td>
+            <td>1万=¥0.0202</td>
             <td></td>
         </tr><tr>
             <td>6</td>
-            <td>5000万</td>
-            <td>¥99.0</td>
-            <td><b>1元=50.5051万</b></td>
-            <td>1万=¥0.0198</td>
-            <td>-</td>
+            <td>9000万</td>
+            <td>¥184.5</td>
+            <td><b>1元=48.7805万</b></td>
+            <td>1万=¥0.0205</td>
             <td></td>
         </tr><tr>
             <td>7</td>
-            <td>3000万</td>
-            <td>¥59.4</td>
-            <td><b>1元=50.5051万</b></td>
-            <td>1万=¥0.0198</td>
-            <td>-</td>
+            <td>5500万</td>
+            <td>¥113.0</td>
+            <td><b>1元=48.6726万</b></td>
+            <td>1万=¥0.0205</td>
             <td></td>
         </tr><tr>
             <td>8</td>
-            <td>4000万</td>
-            <td>¥79.2</td>
-            <td><b>1元=50.5051万</b></td>
-            <td>1万=¥0.0198</td>
-            <td>-</td>
+            <td>8000万</td>
+            <td>¥165.0</td>
+            <td><b>1元=48.4848万</b></td>
+            <td>1万=¥0.0206</td>
             <td></td>
         </tr><tr>
             <td>9</td>
-            <td>4700万</td>
-            <td>¥94.0</td>
-            <td><b>1元=50.0万</b></td>
-            <td>1万=¥0.02</td>
-            <td>-</td>
+            <td>15000万</td>
+            <td>¥313.13</td>
+            <td><b>1元=47.9034万</b></td>
+            <td>1万=¥0.0209</td>
             <td></td>
         </tr><tr>
             <td>10</td>
-            <td>5000万</td>
-            <td>¥100.0</td>
-            <td><b>1元=50.0万</b></td>
-            <td>1万=¥0.02</td>
-            <td>-</td>
+            <td>6500万</td>
+            <td>¥136.0</td>
+            <td><b>1元=47.7941万</b></td>
+            <td>1万=¥0.0209</td>
             <td></td>
         </tr><tr>
             <td>11</td>
-            <td>3500万</td>
-            <td>¥70.0</td>
-            <td><b>1元=50.0万</b></td>
-            <td>1万=¥0.02</td>
-            <td>-</td>
+            <td>7000万</td>
+            <td>¥147.0</td>
+            <td><b>1元=47.619万</b></td>
+            <td>1万=¥0.021</td>
             <td></td>
         </tr><tr>
             <td>12</td>
-            <td>6100万</td>
-            <td>¥122.61</td>
-            <td><b>1元=49.7512万</b></td>
-            <td>1万=¥0.0201</td>
-            <td>-</td>
+            <td>1000万</td>
+            <td>¥21.0</td>
+            <td><b>1元=47.619万</b></td>
+            <td>1万=¥0.021</td>
             <td></td>
         </tr><tr>
             <td>13</td>
-            <td>6400万</td>
-            <td>¥129.28</td>
-            <td><b>1元=49.505万</b></td>
-            <td>1万=¥0.0202</td>
-            <td>-</td>
+            <td>6000万</td>
+            <td>¥126.0</td>
+            <td><b>1元=47.619万</b></td>
+            <td>1万=¥0.021</td>
             <td></td>
         </tr><tr>
             <td>14</td>
-            <td>9000万</td>
-            <td>¥183.0</td>
-            <td><b>1元=49.1803万</b></td>
-            <td>1万=¥0.0203</td>
-            <td>-</td>
+            <td>6000万</td>
+            <td>¥126.0</td>
+            <td><b>1元=47.619万</b></td>
+            <td>1万=¥0.021</td>
             <td></td>
         </tr><tr>
             <td>15</td>
-            <td>6600万</td>
-            <td>¥135.0</td>
-            <td><b>1元=48.8889万</b></td>
-            <td>1万=¥0.0205</td>
-            <td>-</td>
+            <td>5000万</td>
+            <td>¥105.0</td>
+            <td><b>1元=47.619万</b></td>
+            <td>1万=¥0.021</td>
             <td></td>
         </tr><tr>
             <td>16</td>
-            <td>7800万</td>
-            <td>¥159.6</td>
-            <td><b>1元=48.8722万</b></td>
-            <td>1万=¥0.0205</td>
-            <td>-</td>
+            <td>8000万</td>
+            <td>¥168.0</td>
+            <td><b>1元=47.619万</b></td>
+            <td>1万=¥0.021</td>
             <td></td>
         </tr><tr>
             <td>17</td>
-            <td>1000万</td>
-            <td>¥20.5</td>
-            <td><b>1元=48.7805万</b></td>
-            <td>1万=¥0.0205</td>
-            <td>-</td>
+            <td>7000万</td>
+            <td>¥147.7</td>
+            <td><b>1元=47.3934万</b></td>
+            <td>1万=¥0.0211</td>
             <td></td>
         </tr><tr>
             <td>18</td>
-            <td>1000万</td>
-            <td>¥20.5</td>
-            <td><b>1元=48.7805万</b></td>
-            <td>1万=¥0.0205</td>
-            <td>-</td>
-            <td></td>
+            <td>5000万</td>
+            <td>¥107.5</td>
+            <td><b>1元=46.5116万</b></td>
+            <td>1万=¥0.0215</td>
+            <td><span style="color:#f44336;">👎 最差</span></td>
         </tr><tr>
             <td>19</td>
-            <td>3000万</td>
-            <td>¥61.55</td>
-            <td><b>1元=48.7409万</b></td>
-            <td>1万=¥0.0205</td>
-            <td>-</td>
-            <td></td>
+            <td>10000万</td>
+            <td>¥215.0</td>
+            <td><b>1元=46.5116万</b></td>
+            <td>1万=¥0.0215</td>
+            <td><span style="color:#f44336;">👎 最差</span></td>
         </tr><tr>
             <td>20</td>
-            <td>10001万</td>
-            <td>¥206.0</td>
-            <td><b>1元=48.5485万</b></td>
-            <td>1万=¥0.0206</td>
-            <td>-</td>
+            <td>20000万</td>
+            <td>¥430.0</td>
+            <td><b>1元=46.5116万</b></td>
+            <td>1万=¥0.0215</td>
             <td><span style="color:#f44336;">👎 最差</span></td>
-        </tr></tbody></table>
+        </tr></tbody>
+            </table>
         </div>
-    
-
-    <div class="card full">
-        <h3>📈 双平台比例走势对比 (1元 = ?万枫币 · 越高越划算)</h3>
-        <canvas id="rateChart"></canvas>
     </div>
 </div>
 
 <div class="footer">
-    <p>📊 数据来源: DD373 (dd373.com) · 8591 (8591.com.tw) · 冒险岛世界 亚服 阿尔泰</p>
-    <p>💱 8591台币→人民币参考汇率: 1 TWD = 0.242 CNY · ⚡ 历史数据保留90天</p>
+    <p>📊 数据来源: DD373 (dd373.com) · 冒险岛世界 亚服 阿尔泰</p>
+    <p>⚡ GitHub Actions 自动监控 · 历史数据保留90天</p>
 </div>
 
 <script>
 new Chart(document.getElementById('rateChart').getContext('2d'), {
     type: 'line',
     data: {
-        labels: ["2026-06-15T11:34", "2026-06-15T17:52", "2026-06-15T23:36", "2026-06-16T03:38", "2026-06-16T06:13", "2026-06-16T08:07", "2026-06-16T13:42"],
-        datasets: [{
-            label: 'DD373 均价',
-            data: [47.1098, 47.7501, 47.7982, 47.2862, 47.2823, 47.7978, 49.7967],
-            borderColor: '#ff6b35',
-            backgroundColor: '#ff6b3533',
-            tension: 0.3, fill: false, pointRadius: 2, borderWidth: 2,
-        }, {
-            label: 'DD373 最优',
-            data: [47.619, 48.7805, 48.5186, 48.3871, 48.3092, 48.5437, 50.7892],
-            borderColor: '#4caf50',
-            backgroundColor: '#4caf5033',
-            tension: 0.3, fill: false, pointRadius: 1, borderDash: [5,5],
-        }]
+        labels: ["2026-06-15T11:34", "2026-06-15T17:52", "2026-06-15T23:36", "2026-06-16T03:38", "2026-06-16T06:13", "2026-06-16T08:07", "2026-06-16T13:42", "2026-06-17T00:21"],
+        datasets: [
+            {
+                label: '最优比例 (1元=X万)',
+                data: [47.619, 48.7805, 48.5186, 48.3871, 48.3092, 48.5437, 50.7892, 50.0],
+                borderColor: '#4caf50', backgroundColor: '#4caf5033',
+                tension: 0.3, fill: false, pointRadius: 2,
+            },
+            {
+                label: '均价 (1元=X万)',
+                data: [47.1098, 47.7501, 47.7982, 47.2862, 47.2823, 47.7978, 49.7967, 48.1873],
+                borderColor: '#ff6b35', backgroundColor: '#ff6b3533',
+                tension: 0.3, fill: false, pointRadius: 2, borderWidth: 2,
+            },
+            {
+                label: '最差比例 (1元=X万)',
+                data: [46.6667, 46.8201, 47.1604, 46.5116, 46.5116, 47.2441, 48.5485, 46.5116],
+                borderColor: '#f44336', backgroundColor: '#f4433633',
+                tension: 0.3, fill: false, pointRadius: 2,
+            },
+        ]
     },
     options: {
-        responsive: true,
-        maintainAspectRatio: true,
+        responsive: true, maintainAspectRatio: true,
         interaction: { intersect: false, mode: 'index' },
-        plugins: { legend: { labels: { color: '#aaa', usePointStyle: true, padding: 15, font: {size:11} } } },
+        plugins: { legend: { labels: { color: '#aaa', usePointStyle: true, padding: 15 } } },
         scales: {
-            x: { ticks: { color: '#666', maxTicksLimit: 12, font: {size:10} } },
-            y: { ticks: { color: '#666', callback: v => v + '万' } }
+            x: { ticks: { color: '#666', maxTicksLimit: 10 } },
+            y: { ticks: { color: '#666', callback: v => '1元=' + v + '万' } }
         }
     }
 });
