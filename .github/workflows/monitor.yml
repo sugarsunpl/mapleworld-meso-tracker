@@ -2,9 +2,8 @@ name: 冒险岛世界金价监控
 
 on:
   schedule:
-    # 每30分钟运行一次 (UTC时间)
     - cron: '*/30 * * * *'
-  workflow_dispatch:  # 允许手动触发
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -22,12 +21,9 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests beautifulsoup4 playwright
+        run: pip install requests beautifulsoup4
 
-      - name: Install Playwright Chromium
-        run: playwright install chromium --with-deps
-
-      - name: Run tracker (DD373 + 8591)
+      - name: Run tracker
         run: python dd373_tracker.py
 
       - name: Generate report
