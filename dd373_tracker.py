@@ -143,13 +143,62 @@ def parse_8591_html(html_text):
     return listings
 
 
-def fetch_8591():
-    """抓取 8591 台湾交易平台枫币 (台币→人民币换算)
-    注意: 8591 有反爬机制，直接 requests 可能返回 503。
-    在 cron 任务中，可通过 WebFetch 获取 HTML 后调用 parse_8591_html() 解析。
-    """
+def _fetch_8591_playwright():
+    """用 Playwright (headless Chromium) 抓取 8591，绕过 Cloudflare 反爬"""
+    from playwright.sync_api import sync_playwright
     all_listings = []
 
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        ctx = browser.new_context(
+            user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+            locale="zh-TW"
+        )
+        page = ctx.new_page()
+
+        for pg in range(4):
+            params = {**URL_8591_PARAMS, "firstRow": pg * 10}
+            url = URL_8591 + "?" + "&".join(f"{k}={v}" for k, v in params.items())
+            try:
+                page.goto(url, wait_until="networkidle", timeout=30000)
+                html = page.content()
+                page_listings = parse_8591_html(html)
+                all_listings.extend(page_listings)
+                if not page_listings:
+                    break
+            except Exception as e:
+                if pg == 0:
+                    return {"platform": "8591", "error": f"Playwright抓取失败: {e}",
+                            "timestamp": datetime.now(TZ).isoformat()}
+                break
+
+        browser.close()
+
+    if not all_listings:
+        return {"platform": "8591", "error": "Playwright未解析到枫币商品",
+                "timestamp": datetime.now(TZ).isoformat()}
+
+    return _build_result("8591", "繁中服 - Artale (阿尔泰)",
+                         f"CNY (1 TWD = {TWD_TO_CNY} CNY)", all_listings, URL_8591)
+
+
+def fetch_8591():
+    """抓取 8591 台湾交易平台枫币 (台币→人民币换算)
+    8591 有 Cloudflare 反爬，requests 返回 503。
+    优先尝试 Playwright (headless Chromium)，失败则 fallback 到 requests。
+    """
+    # 优先: Playwright (能绕 Cloudflare)
+    try:
+        from playwright.sync_api import sync_playwright
+        print("    → 使用 Playwright 抓取 8591...")
+        return _fetch_8591_playwright()
+    except ImportError:
+        print("    → Playwright 未安装，fallback 到 requests...")
+    except Exception as e:
+        print(f"    → Playwright 失败: {e}, fallback 到 requests...")
+
+    # 备用: requests (可能被反爬拦截)
+    all_listings = []
     for page in range(4):
         params = {**URL_8591_PARAMS, "firstRow": page * 10}
         try:
@@ -163,7 +212,7 @@ def fetch_8591():
             if page == 0:
                 return {"platform": "8591", "error": f"请求失败(8591反爬): {e}",
                         "timestamp": datetime.now(TZ).isoformat(),
-                        "note": "需要使用 WebFetch 获取页面HTML后调用 parse_8591_html() 解析"}
+                        "note": "需要安装 Playwright: pip install playwright && playwright install chromium"}
             break
 
     if not all_listings:

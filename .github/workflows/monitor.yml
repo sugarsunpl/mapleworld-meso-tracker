@@ -22,18 +22,19 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests beautifulsoup4
+        run: pip install requests beautifulsoup4 playwright
 
-      - name: Run DD373 tracker
+      - name: Install Playwright Chromium
+        run: playwright install chromium --with-deps
+
+      - name: Run tracker (DD373 + 8591)
         run: python dd373_tracker.py
 
       - name: Generate report
-        run: |
-          python -c "
+        run: python -c "
           from dd373_tracker import generate_html_report
           r = generate_html_report()
           print(f'Report: {r}')
-          "
 
       - name: Commit and push changes
         run: |
