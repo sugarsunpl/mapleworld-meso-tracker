@@ -19587,6 +19587,153 @@
           ]
         }
       ]
+    },
+    {
+      "timestamp": "2026-06-30T00:38:19.866770+08:00",
+      "platforms": [
+        {
+          "platform": "DD373",
+          "game": "冒险岛世界 (MapleStory Worlds)",
+          "server": "亚服 - 阿尔泰 (Artale)",
+          "url": "https://www.dd373.com/s-n95vb3-c-r9tnsn-qhgknj-1crcd9.html",
+          "timestamp": "2026-06-30T00:38:19.865886+08:00",
+          "currency": "CNY",
+          "total_listings": 20,
+          "avg_rate_wan_per_yuan": 50.8728,
+          "best_rate": {
+            "rate_wan_per_yuan": 52.2876,
+            "mesos_wan": 8000,
+            "price_cny": 153.0
+          },
+          "worst_rate": {
+            "rate_wan_per_yuan": 50.0,
+            "mesos_wan": 2000,
+            "price_cny": 40.0
+          },
+          "listings": [
+            {
+              "mesos_wan": 8000,
+              "price_cny": 153.0,
+              "rate_wan_per_yuan": 52.2876,
+              "rate_yuan_per_wan": 0.0191
+            },
+            {
+              "mesos_wan": 2000,
+              "price_cny": 38.38,
+              "rate_wan_per_yuan": 52.1105,
+              "rate_yuan_per_wan": 0.0192
+            },
+            {
+              "mesos_wan": 6800,
+              "price_cny": 130.5,
+              "rate_wan_per_yuan": 52.1073,
+              "rate_yuan_per_wan": 0.0192
+            },
+            {
+              "mesos_wan": 5000,
+              "price_cny": 96.0,
+              "rate_wan_per_yuan": 52.0833,
+              "rate_yuan_per_wan": 0.0192
+            },
+            {
+              "mesos_wan": 10000,
+              "price_cny": 195.0,
+              "rate_wan_per_yuan": 51.2821,
+              "rate_yuan_per_wan": 0.0195
+            },
+            {
+              "mesos_wan": 5000,
+              "price_cny": 97.5,
+              "rate_wan_per_yuan": 51.2821,
+              "rate_yuan_per_wan": 0.0195
+            },
+            {
+              "mesos_wan": 3000,
+              "price_cny": 58.54,
+              "rate_wan_per_yuan": 51.247,
+              "rate_yuan_per_wan": 0.0195
+            },
+            {
+              "mesos_wan": 2000,
+              "price_cny": 39.12,
+              "rate_wan_per_yuan": 51.1247,
+              "rate_yuan_per_wan": 0.0196
+            },
+            {
+              "mesos_wan": 3500,
+              "price_cny": 68.51,
+              "rate_wan_per_yuan": 51.0874,
+              "rate_yuan_per_wan": 0.0196
+            },
+            {
+              "mesos_wan": 14000,
+              "price_cny": 274.4,
+              "rate_wan_per_yuan": 51.0204,
+              "rate_yuan_per_wan": 0.0196
+            },
+            {
+              "mesos_wan": 9999,
+              "price_cny": 196.06,
+              "rate_wan_per_yuan": 50.9997,
+              "rate_yuan_per_wan": 0.0196
+            },
+            {
+              "mesos_wan": 4000,
+              "price_cny": 78.8,
+              "rate_wan_per_yuan": 50.7614,
+              "rate_yuan_per_wan": 0.0197
+            },
+            {
+              "mesos_wan": 10011,
+              "price_cny": 200.0,
+              "rate_wan_per_yuan": 50.055,
+              "rate_yuan_per_wan": 0.02
+            },
+            {
+              "mesos_wan": 3000,
+              "price_cny": 59.99,
+              "rate_wan_per_yuan": 50.0083,
+              "rate_yuan_per_wan": 0.02
+            },
+            {
+              "mesos_wan": 2000,
+              "price_cny": 40.0,
+              "rate_wan_per_yuan": 50.0,
+              "rate_yuan_per_wan": 0.02
+            },
+            {
+              "mesos_wan": 7000,
+              "price_cny": 140.0,
+              "rate_wan_per_yuan": 50.0,
+              "rate_yuan_per_wan": 0.02
+            },
+            {
+              "mesos_wan": 9000,
+              "price_cny": 180.0,
+              "rate_wan_per_yuan": 50.0,
+              "rate_yuan_per_wan": 0.02
+            },
+            {
+              "mesos_wan": 13000,
+              "price_cny": 260.0,
+              "rate_wan_per_yuan": 50.0,
+              "rate_yuan_per_wan": 0.02
+            },
+            {
+              "mesos_wan": 5000,
+              "price_cny": 100.0,
+              "rate_wan_per_yuan": 50.0,
+              "rate_yuan_per_wan": 0.02
+            },
+            {
+              "mesos_wan": 6000,
+              "price_cny": 120.0,
+              "rate_wan_per_yuan": 50.0,
+              "rate_yuan_per_wan": 0.02
+            }
+          ]
+        }
+      ]
     }
   ]
 }
